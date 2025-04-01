@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables
 config/.env
+.env
 
 # Logs
 *.log
@@ -15,13 +16,10 @@ config/.env
 *.pyc
 __pycache__/
 
-# Mapbox and Firebase tokens
-config/tokens.js
-config/firebase-config.js
 
 # Data files
 data/*.csv
-data/*.json
+
 
 # IDE-specific files
 .vscode/

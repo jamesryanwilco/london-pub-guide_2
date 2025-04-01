@@ -26,7 +26,7 @@ export function addToFavourites(pub) {
 
   const listItem = document.createElement('li');
   listItem.innerHTML = `
-    <img src="${pub.image_url || 'placeholder.jpg'}" alt="${pub.name}" class="favourites-thumbnail">
+    <img src="${pub.image_url || 'static/images/placeholder.jpg'}" alt="${pub.name}" class="favourites-thumbnail">
     <div class="favourites-details">
       <span class="pub-name">${pub.name}</span>
     </div>

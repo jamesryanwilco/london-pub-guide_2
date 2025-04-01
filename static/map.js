@@ -1,7 +1,8 @@
-import { MAPBOX_ACCESS_TOKEN } from '../config/tokens.js';
+// Debugging: Log the Mapbox access token
+console.log('Mapbox Access Token:', process.env.MAPBOX_ACCESS_TOKEN);
 
 // Mapbox Access Token
-mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN; // Replace with a valid token
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN; // Ensure the token is loaded from the environment
 
 // Initialize the map
 export const map = new mapboxgl.Map({
@@ -10,7 +11,7 @@ export const map = new mapboxgl.Map({
     projection: 'globe',
     zoom: 10,
     center: [-0.1278, 51.5074],
-    touchZoomRotate: false
+    touchZoomRotate: true // Enable touch gestures for zoom and rotation
 });
 
 // Controls and limits
@@ -28,6 +29,9 @@ map.setMaxBounds(londonBounds);
 map.on('style.load', () => {
     map.setFog({});
 });
+
+map.touchZoomRotate.enable(); // Ensure two-finger zoom is enabled
+map.touchZoomRotate.disableRotation(); // Optionally disable rotation if not needed
 
 // Optional: Spinning globe effect
 const secondsPerRevolution = 240;

@@ -1,0 +1,15 @@
+{
+  "name": "pub-map-vite",
+  "version": "1.0.0",
+  "description": "The **London Pub Guide** is a web application that helps users explore and discover pubs in London. It features an interactive map, filters, and a favorites system to enhance the user experience.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.2.4"
+  }
+}
