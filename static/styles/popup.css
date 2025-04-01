@@ -1,0 +1,85 @@
+.popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.popup-content h3 {
+    margin: 0;
+    font-size: 20px; /* Slightly larger font for the title */
+    font-weight: bold;
+    color: #222; /* Darker color for better contrast */
+    text-align: center; /* Center-align the title */
+    margin-bottom: 10px; /* Add spacing below the title */
+}
+
+.popup-content p {
+    margin: 10px 0;
+    color: #555;
+    text-align: justify; /* Justify the description for better readability */
+}
+
+.popup-image {
+    width: 100%; /* Full width of the popup */
+    aspect-ratio: 1.5 / 1; /* Maintain a 1.5:1 aspect ratio */
+    object-fit: cover; /* Ensure the image is not stretched */
+    border-radius: 8px; /* Add rounded corners */
+    margin-bottom: 15px; /* Add spacing below the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better visibility */
+}
+
+.popup-attributes {
+    display: flex; /* Use flexbox for vertical stacking */
+    flex-direction: column; /* Stack items vertically */
+    gap: 8px; /* Reduce gap for a more compact layout */
+    width: 100%; /* Full width of the popup */
+    margin: 15px 0; /* Add spacing above and below the attributes */
+    padding: 10px; /* Add padding around the attributes section */
+    background: #f5f5f5; /* Light background to distinguish the section */
+    border-radius: 8px; /* Rounded corners for the section */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better separation */
+}
+
+.popup-attributes div {
+    background: #ffffff; /* White background for individual items */
+    padding: 8px 12px; /* Add padding for better spacing */
+    border-radius: 5px; /* Rounded corners for individual items */
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for individual items */
+    color: #333; /* Dark text color */
+}
+
+.mapboxgl-popup-content {
+    max-width: 800px; /* Increase the maximum width of the popup */
+    width: 100%; /* Ensure responsiveness */
+    padding: 20px; /* Add padding for better spacing */
+    background: #ffffff; /* White background for better contrast */
+    border-radius: 10px; /* Rounded corners for the popup */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a stronger shadow for better visibility */
+}
+
+button.add-to-favourites {
+    display: block;
+    width: 100%; /* Full width button */
+    padding: 10px;
+    margin: 15px 0; /* Add spacing above and below the button */
+    background-color: #ff5733; /* Bright orange background */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.add-to-favourites:hover {
+    background-color: #e04e2b; /* Slightly darker orange on hover */
+}
+
+button.add-to-favourites:disabled {
+    background-color: #ccc; /* Gray background for disabled state */
+    cursor: not-allowed;
+}

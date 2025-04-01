@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>London Pub Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="static/styles/global.css">
+  <link rel="stylesheet" href="static/styles/header.css">
+  <link rel="stylesheet" href="static/styles/sidebar.css">
+  <link rel="stylesheet" href="static/styles/map.css">
+  <link rel="stylesheet" href="static/styles/modal.css">
+  <link rel="stylesheet" href="static/styles/popup.css">
+
+  <style>
+    html, body {
+        height: 100%; /* Ensure the body spans the full viewport height */
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <span id="username-display"></span>
+    <button id="header-auth-button">Login</button>
+  </header>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email">
+      <input type="password" id="login-password" placeholder="Password">
+      <button id="login-button">Login</button>
+      <button id="signup-button">Sign Up</button>
+      <hr>
+      <button id="google-signin-button">Sign in with Google</button> <!-- Google Sign-In Button -->
+    </div>
+  </div>
+
+  <!-- Logout Button -->
+  <button id="logout-button" style="display: none;">Logout</button>
+
+  <button id="sidebar-toggle">☰</button>
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <button id="filter-tab" class="tab-button active">Filters</button>
+      <button id="favourites-tab" class="tab-button">
+        Favourites <span id="favourites-counter" class="badge">0</span>
+      </button>
+      <button id="leaderboard-tab" class="tab-button">Leaderboard</button>
+    </div>
+    <div id="filter-content" class="tab-content active">
+      <input type="text" id="search-bar" placeholder="Search pubs...">
+      <div class="filters">
+        <label>
+          <input type="checkbox" id="dog-friendly">
+          Dog Friendly
+        </label>
+        <label>
+          <input type="checkbox" id="shows-sports">
+          Shows Sports
+        </label>
+        <label>
+          <input type="checkbox" id="beer-garden">
+          Beer Garden
+        </label>
+        <label>
+          <input type="checkbox" id="open-late" disabled>
+          Open Late
+        </label>
+        <label>
+          <input type="checkbox" id="live-music" disabled>
+          Live Music
+        </label>
+        <label>
+          <input type="checkbox" id="serves-food" disabled>
+          Serves Food
+        </label>
+        <label>
+          <input type="checkbox" id="pool-table" disabled>
+          Has Pool Table
+        </label>
+        <label>
+          <input type="checkbox" id="darts" disabled>
+          Has Darts
+        </label>
+      </div>
+      <button id="reset-filters">Reset Filters</button>
+    </div>
+    <div id="favourites-content" class="tab-content">
+      <ul id="favourites"></ul>
+    </div>
+    <div id="leaderboard-content" class="tab-content">
+      <ul id="leaderboard"></ul>
+    </div>
+    <div id="sidebar-footer">
+      <p id="pub-count-text"></p>
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Ensure the #map element exists -->
+  <div id="map"></div>
+
+  <!-- Footer -->
+  <footer id="footer" class="hidden">
+    <button id="footer-logout-button">Logout</button>
+  </footer>
+
+  <!-- Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+  <!-- Main JS Module -->
+  <script type="module" src="static/main.js"></script>
+
+</body>
+</html>

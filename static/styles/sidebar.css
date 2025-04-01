@@ -1,0 +1,341 @@
+#sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    max-width: 400px;
+    height: 80%; /* Match the height of the parent container (body) */
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 0 10px 10px 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden; /* Prevent unnecessary scrolling */
+    pointer-events: none; /* Disable interactions by default */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+    margin-top: 60px; /* Add top margin to create space below the header */
+}
+
+#sidebar.open {
+    transform: translateX(0);
+    pointer-events: auto; /* Enable interactions when open */
+    opacity: 1; /* Restore full opacity */
+}
+
+body.sidebar-open {
+    overflow: hidden; /* Prevent page scrolling when sidebar is open */
+}
+
+#sidebar > *:not(#sidebar-footer) {
+    margin-left: 20px; /* Reduced margin to the left */
+    margin-top: 5px;
+}
+
+#sidebar-footer {
+    margin: 0; /* Ensure no margin is applied to the footer */
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#sidebar-toggle {
+    position: absolute;
+    top: 70px; /* Position it below the header */
+    left: 20px;
+    z-index: 1100;
+    background: #FFD700;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+    pointer-events: auto; /* Ensure toggle is always interactive */
+    opacity: 1; /* Ensure full opacity */
+}
+
+#sidebar-toggle:hover {
+    background: #FFC107;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: row; /* Stack buttons horizontally */
+    justify-content: flex-start; /* Align buttons to the left */
+    margin-left: 900px; /* Apply left margin to the entire navigation container */
+    margin-bottom: 20px; /* Keep the increased margin between search bar and checkboxes */
+}
+
+.sidebar-header .tab-button {
+    margin-left: 0; /* Remove individual button margins */
+}
+
+.tab-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: #FFD700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.tab-button.active {
+    background: #FFD700;
+    color: #333;
+}
+
+.tab-content {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+#search-bar {
+    width: 90%;
+    margin-bottom: 20px; /* Increase margin to separate from checkboxes */
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.filters label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filters input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #FFD700; /* Subtle gold accent */
+}
+
+.filters input[type="checkbox"]:disabled + label,
+.filters label input[type="checkbox"]:disabled {
+    color: grey; /* Grey out the label text */
+    cursor: not-allowed; /* Show a "not-allowed" cursor */
+    opacity: 0.5; /* Reduce opacity for a disabled look */
+}
+
+#favourites {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: calc(100% - 100px); /* Adjust height to fit within the sidebar */
+    overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox: make the scrollbar thinner */
+    scrollbar-color: #FFD700 rgba(50, 50, 50, 0.8); /* Gold thumb with dark track */
+    scrollbar-gutter: stable; 
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+#favourites li {
+    display: flex;
+    flex-direction: row; /* Arrange items in a row */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: flex-start; /* Align content to the start */
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    background: #444;
+    border-radius: 8px;
+    position: relative; /* Enable positioning for child elements */
+    transition: background 0.3s, transform 0.3s; /* Smooth transition for hover and drag effects */
+}
+
+.favourites-thumbnail {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px; /* Add spacing between the image and the text */
+}
+
+.favourites-details {
+    margin: 0; /* Remove margin */
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    align-self: flex-start; /* Align the text to the top of the image */
+}
+
+#favourites li:hover {
+    background: #555; /* Slightly lighter background on hover */
+    transform: scale(1.02); /* Slightly enlarge the item on hover */
+}
+
+.favourites-thumbnail {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.favourites-ranking {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #FFD700; /* Gold background */
+    color: #333; /* Dark text for contrast */
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    touch-action: pan-y; /* Restrict movement to the y-axis */
+}
+
+.favourites-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px; /* Add spacing between the name and actions */
+}
+
+.goto-button {
+  position: absolute;
+  top: 5px; /* Position at the top */
+  right: 5px; /* Position at the right */
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none; /* Remove border */
+  background: none; /* Remove background color */
+}
+
+.goto-button:hover {
+    background: #FFC107; /* Slightly darker gold on hover */
+    border-radius: 50%;
+  }
+
+#favourites::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+}
+
+#favourites::-webkit-scrollbar-track {
+    background: rgba(50, 50, 50, 0.8); /* Dark background for the track */
+    border-radius: 10px; /* Rounded corners for the track */
+}
+
+#favourites::-webkit-scrollbar-thumb {
+    background: #FFD700; /* Gold color for the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 2px solid rgba(50, 50, 50, 0.8); /* Add a border for better contrast */
+}
+
+#favourites::-webkit-scrollbar-thumb:hover {
+    background: #FFC107; /* Lighter gold on hover */
+}
+
+#reset-filters {
+    margin-top: 20px; /* Ensure it doesn't drop too far */
+    align-self: flex-start; /* Align it properly within the sidebar */
+    width: 100%;
+    padding: 10px 20px;
+    background: #FF5733;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+#reset-filters:hover {
+    background: #FF4500;
+}
+
+#leaderboard {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#leaderboard li {
+  padding: 10px;
+  background: #444;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced between pub name and count */
+}
+
+#leaderboard li strong {
+  color: #FFD700; /* Highlight pub names in gold */
+}
+
+#leaderboard li span {
+  color: #FF5733; /* Red heart color */
+  font-size: 14px;
+  margin-left: auto; /* Push the count and heart to the right */
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 40%; /* Adjust width for smaller screens */
+    }
+
+    #sidebar-toggle {
+        top: 60px; /* Adjust position for smaller screens */
+    }
+}
+
+#sidebar-footer {
+  margin-top: auto;
+  width: 90%;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFD700;
+  border-top: 1px solid #555;
+  background-color: rgba(30, 30, 30, 0.9);
+}
+
+#progress-container {
+  width: 100%;
+  height: 10px;
+  background-color: #444;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: #FFD700;
+  transition: width 0.3s ease-in-out;
+}

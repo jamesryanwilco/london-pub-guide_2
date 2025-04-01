@@ -1,0 +1,88 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: #2c2c2c;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #FFD700;
+}
+
+.modal-content input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid #FFD700;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.modal-content button {
+    margin: 10px 5px;
+    padding: 12px 25px; /* Adjust padding for better dimensions */
+    background: #FFD700; /* Gold background */
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    cursor: pointer;
+    font-size: 16px; /* Slightly larger font */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark text for contrast */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.modal-content button:hover {
+    background: #FFC107; /* Slightly darker gold on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.modal-content button:active {
+    background: #FFB300; /* Even darker gold when clicked */
+    transform: scale(0.95); /* Slightly shrink on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+
+#google-signin-button {
+  margin: 10px 5px;
+  padding: 12px 25px;
+  background: #4285F4; /* Google Blue */
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#google-signin-button:hover {
+  background: #357AE8; /* Darker Google Blue */
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,497 @@
+/* Fullscreen map */
+body { margin: 0; padding: 0; padding-top: 50px; /* Adjust based on the header height */ }
+#map { 
+    position: absolute; 
+    top: 0; 
+    bottom: 0; 
+    width: 100%; 
+    height: 100%; 
+    margin: 0; /* Ensure no margin is applied */
+    /* Match the height of the parent container (body) */ 
+}
+
+/* Marker styles */
+.marker {
+    background-size: cover;
+    width: 100px;
+    height: 70px;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+/* Custom marker styles */
+.custom-marker {
+    display: flex; /* Ensure flexbox is always applied */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #FFD700; /* Gold background */
+    color: #333;
+    font-size: 24px; /* Larger font size for the icon */
+    font-weight: bold;
+    text-align: center;
+    line-height: 1; /* Ensure no extra line height is added */
+    padding: 0; /* Remove any padding */
+    margin: 0; /* Remove any margin */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    visibility: visible; /* Ensure visibility is consistent */
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for visual changes */
+}
+
+.custom-marker .favourites-icon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 18px;
+    color: #FF5733;
+    border-radius: 50%;
+    padding: 2px;
+    display: none; /* Initially hidden */
+    z-index: 2; /* Ensure it appears above the marker */
+    pointer-events: none; /* Prevent interaction issues */
+}
+
+.custom-marker.favourites-marker .favourites-icon {
+    display: block; /* Show the heart icon when the marker is in the favourites */
+}
+
+.glowing-marker {
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8); /* Gold glow */
+    z-index: 1; /* Ensure it doesn't overshadow the heart icon */
+}
+
+/* Fallback marker styles */
+.fallback-marker {
+    background-color: #FF5733;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-weight: bold;
+}
+
+/* Sidebar styles */
+#sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    max-width: 400px;
+    height: 80%; /* Match the height of the parent container (body) */
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 0 10px 10px 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden; /* Prevent unnecessary scrolling */
+    pointer-events: none; /* Disable interactions by default */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+    margin-top: 60px; /* Add top margin to create space below the header */
+}
+
+#sidebar.open {
+    transform: translateX(0);
+}
+
+body.sidebar-open {
+    overflow: hidden; /* Prevent page scrolling when sidebar is open */
+}
+
+
+/* Adjust sidebar content to avoid overlap with the toggle button */
+#sidebar > *:not(#sidebar-footer) {
+    margin-left: 20px; /* Reduced margin to the left */
+    margin-top: 5px;
+}
+
+#sidebar-footer {
+    margin: 0; /* Ensure no margin is applied to the footer */
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #FFD700;
+    transition: width 0.3s ease-in-out;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: row; /* Stack buttons horizontally */
+    justify-content: flex-start; /* Align buttons to the left */
+    margin-left: 900px; /* Apply left margin to the entire navigation container */
+    margin-bottom: 20px; /* Keep the increased margin between search bar and checkboxes */
+}
+
+.sidebar-header .tab-button {
+    margin-left: 0; /* Remove individual button margins */
+}
+
+#search-bar {
+    width: 90%;
+    margin-bottom: 20px; /* Increase margin to separate from checkboxes */
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.filters label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filters input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #FFD700; /* Subtle gold accent */
+}
+
+.filters input[type="checkbox"]:disabled + label,
+.filters label input[type="checkbox"]:disabled {
+  color: grey; /* Grey out the label text */
+  cursor: not-allowed; /* Show a "not-allowed" cursor */
+  opacity: 0.5; /* Reduce opacity for a disabled look */
+}
+
+#reset-filters {
+    margin-top: 20px; /* Ensure it doesn't drop too far */
+    align-self: flex-start; /* Align it properly within the sidebar */
+    width: 100%;
+    padding: 10px 20px;
+    background: #FF5733;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+#reset-filters:hover {
+    background: #FF4500;
+}
+
+/* Global font style */
+body {
+    font-family: 'Arial', sans-serif; /* Clear and bold font */
+}
+
+/* Sidebar toggle button */
+#sidebar-toggle {
+    position: absolute;
+    top: 70px; /* Position it below the header */
+    left: 20px;
+    z-index: 1100;
+    background: #FFD700;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+    pointer-events: none; /* Disable interactions by default */
+    opacity: 0.5; /* Reduce opacity to indicate disabled state */
+}
+
+#sidebar-toggle:hover {
+    background: #FFC107;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 40%;
+    }
+}
+
+.popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.popup-content h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.popup-content p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.popup-image {
+    width: 100%;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.popup-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Favourites tab, sidebar tabs, and favourites items */
+.tab-button {
+  background: #333;
+  color: #FFD700;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.tab-button.active {
+  background: #FFD700;
+  color: #333;
+}
+
+.tab-content {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+#favourites {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 60pc; /* Limit height to make scrolling manageable */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#favourites::-webkit-scrollbar {
+  width: 8px; /* Set scrollbar width */
+}
+
+#favourites::-webkit-scrollbar-thumb {
+  background: #FFD700; /* Gold color for the scrollbar thumb */
+  border-radius: 4px; /* Rounded edges for the thumb */
+}
+
+#favourites::-webkit-scrollbar-thumb:hover {
+  background: #FFC107; /* Slightly darker gold on hover */
+}
+
+#favourites::-webkit-scrollbar-track {
+  background: #333; /* Dark background for the scrollbar track */
+  border-radius: 4px; /* Rounded edges for the track */
+}
+
+#favourites li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #444;
+  border-radius: 8px;
+  position: relative; /* Enable positioning for child elements */
+}
+
+.favourites-thumbnail {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative; /* Enable positioning for the button */
+}
+
+.favourites-thumbnail span {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.remove-favourites-item {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #FF5733;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.remove-favourites-item:hover {
+  background: #FF4500;
+}
+
+.badge {
+  background: #FF5733;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Highlight style for selected favorite list item */
+.selected-favourite {
+  background: #FFD700; /* Gold background */
+  color: rgba(255, 215, 0, 0.8); /* Dark text for contrast */
+  font-weight: bold;
+  border: 2px solid rgba(255, 215, 0, 0.8); /* Add a border for emphasis */
+  
+}
+
+/* Login modal styles */
+.modal {
+    display: none; /* Ensure modal is hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: #2c2c2c; /* Dark background for the modal */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+    color: white;
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Limit the maximum width */
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #FFD700; /* Gold color for the title */
+}
+
+.modal-content input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid #FFD700; /* Gold border */
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.modal-content input::placeholder {
+    color: #ccc; /* Light gray placeholder text */
+}
+
+.modal-content button {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background: #FFD700; /* Gold background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; /* Dark text for contrast */
+    transition: background 0.3s;
+}
+
+.modal-content button:hover {
+    background: #FFC107; /* Slightly darker gold on hover */
+}
+
+.modal-content button:active {
+    background: #FFB300; /* Even darker gold when clicked */
+}
+
+/* Header styles */
+#header {
+    position: fixed; /* Fix the header at the top of the page */
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the header span the full width */
+    background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent dark background */
+    color: white;
+    display: flex;
+    justify-content: space-between; /* Space out the username and logout button */
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000; /* Ensure the header is above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+}
+
+#username-display {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#header-logout-button {
+    background-color: #FF5733;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 25px; /* Adjust padding for better dimensions */
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: auto; /* Ensure the button width is only as wide as its content */
+    text-align: center; /* Center the text inside the button */
+    margin-left: 10px; /* Add spacing between the username and the button */
+    margin-right: 30px; 
+}
+
+#header-logout-button:hover {
+    background-color: #FF4500;
+}
